@@ -12,9 +12,10 @@ A function that receives an array of item objects and calculates the subtotal.
 npm install
 ```
 
+
 ### Running tests
 
-While in the project folder, run the following command in terminal to run the tests. 
+While in the project folder, run the following command in terminal to run the unit tests. 
 
 ```
 npm run test

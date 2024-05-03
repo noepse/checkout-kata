@@ -168,3 +168,20 @@ describe("checkout - happy paths", () => {
     expect(output).toEqual(expectedOutput);
   });
 });
+
+describe('checkout - sad paths', ()=>{
+  test('returns an error for a non-array parameter', ()=>{
+    const input = "hello"
+
+    expect(()=>{
+      checkout(input)
+    }).toThrow("Error: Parameter is not an array!")
+  })
+  test('returns an error for an item without required properties', ()=>{
+    const input = [{"banana": 1}]
+
+    expect(()=>{
+      checkout(input)
+    }).toThrow("Error: Parameter is not an array!")
+  })
+})
