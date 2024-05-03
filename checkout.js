@@ -1,5 +1,6 @@
 function checkout(items) {
 
+  // unsure if error handling is required for this task - have included it for completeness!
   if (!Array.isArray(items)){
       throw new Error("Error: Parameter is not an array!");
   }
@@ -13,7 +14,25 @@ function checkout(items) {
 
   let total = 0;
 
-  items.forEach((item) => {
+  items.forEach((item, index) => {
+
+    // rest of error handling
+    if (!item.hasOwnProperty("quantity")){
+      throw new Error(`Error: Item at ${index} index does not have quantity property!`);
+    }
+    if (!item.hasOwnProperty("code")){
+      throw new Error(`Error: Item at ${index} index does not have code property!`);
+    }
+    if (!dictionary.hasOwnProperty(item.code)){
+      throw new Error(`Error: Item at ${index} index has an unknown code value!`);
+    }
+    if (item.quantity < 0){
+      throw new Error(`Error: Item at ${index} index has a quantity below zero!`);
+    }
+    if (!Number.isInteger((item.quantity))){
+      throw new Error(`Error: Item at ${index} index is not an integer!`);
+    }
+
     let remainingItems = item.quantity;
     const lookup = dictionary[item.code];
     if (lookup.hasOwnProperty("offer")) {

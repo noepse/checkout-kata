@@ -177,11 +177,46 @@ describe('checkout - sad paths', ()=>{
       checkout(input)
     }).toThrow("Error: Parameter is not an array!")
   })
-  test('returns an error for an item without required properties', ()=>{
-    const input = [{"banana": 1}]
+  test('returns an error for an item without the quantity property', ()=>{
+    const input = [{quantety: 3, code: "A"}]
 
     expect(()=>{
       checkout(input)
-    }).toThrow("Error: Parameter is not an array!")
+    }).toThrow("Error: Item at 0 index does not have quantity property!")
+  })
+  test('returns an error for an item without the code property', ()=>{
+    const input = [{quantity: 3}]
+
+    expect(()=>{
+      checkout(input)
+    }).toThrow("Error: Item at 0 index does not have code property!")
+  })
+  test('returns an error for an item with an unknown code value', ()=>{
+    const input = [{quantity: 1, code: "Z"}]
+
+    expect(()=>{
+      checkout(input)
+    }).toThrow("Error: Item at 0 index has an unknown code value!")
+  })
+  test('returns an error for an item with a negative quantity value', ()=>{
+    const input = [{quantity: -1, code: "A"}]
+
+    expect(()=>{
+      checkout(input)
+    }).toThrow("Error: Item at 0 index has a quantity below zero!")
+  })
+  test('returns an error for an item with a non-integer quantity', ()=>{
+    const input = [{quantity: 2.1, code: "A"}]
+
+    expect(()=>{
+      checkout(input)
+    }).toThrow("Error: Item at 0 index is not an integer!")
+  })
+  test('returns an error for an item with a non-integer quantity', ()=>{
+    const input = [{quantity: "two", code: "A"}]
+
+    expect(()=>{
+      checkout(input)
+    }).toThrow("Error: Item at 0 index is not an integer!")
   })
 })
